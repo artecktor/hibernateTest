@@ -14,11 +14,11 @@ public class StudentServiceIMPL implements StudentService {
 
     @Override
     public void delete(int id) {
-        studentRepository.delete(id);
+        studentRepository.deleteById(id);
     }
 
     @Override
-    public List<Student> findAllNotDeleted() {
-        return studentRepository.findAllNotDeleted();
+    public List<Student> findAll() {
+        return studentRepository.findAll();
     }
 }

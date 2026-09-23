@@ -1,25 +1,33 @@
 package org.example.hibernate.Student;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 @Entity
+@SQLRestriction("deleted = false")
+@SQLDelete(sql ="update Student set deleted = true where id=?")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String fatherName;
+    @Formula("concat(name, ' ', father_name)")
+    private String fullName;
     @Column(nullable = false)
-    private boolean delete = false;
+    private boolean deleted = false;
 
-    public Student(int id, String name, boolean delete) {
+    public Student(int id, String name, String fatherName, String fullName, boolean deleted) {
         this.id = id;
         this.name = name;
-        this.delete = delete;
+        this.fatherName = fatherName;
+        this.fullName = fullName;
+        this.deleted = deleted;
     }
 
-    public Student() {
-
-    }
+    public Student() {}
 
     public int getId() {
         return id;
@@ -37,11 +45,27 @@ public class Student {
         this.name = name;
     }
 
-    public boolean isDelete() {
-        return delete;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setDelete(boolean delete) {
-        this.delete = delete;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 }

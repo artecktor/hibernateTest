@@ -7,5 +7,5 @@ import java.util.List;
 @Service
 public interface StudentService {
     void delete(int id);
-    List<Student> findAllNotDeleted();
+    List<Student> findAll();
 }
